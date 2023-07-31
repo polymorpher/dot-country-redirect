@@ -18,7 +18,8 @@ const limiter = (args?): any => rateLimit({
 
 router.get('/*', limiter(), async (req, res) => {
   try {
-    const target = await redisClient.get(req.hostname)
+    const fullUrl = req.hostname + req.path
+    const target = await redisClient.get(fullUrl)
     if (!target) {
       return res.status(StatusCodes.NOT_FOUND).json({ hostname: req.hostname, error: 'no target' })
     }
