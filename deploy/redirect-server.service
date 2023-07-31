@@ -1,0 +1,14 @@
+[Unit]
+Description=1NS Redirect Server
+After=network.target
+
+[Service]
+Environment=PORT=80 HTTPS_PORT=443
+Type=simple
+User=worker
+WorkingDirectory=/opt/dot-country-redirect
+ExecStart=/opt/dot-country-redirect/node_modules/.bin/ts-node-esm /opt/dot-country-redirect/bin/run.ts
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
